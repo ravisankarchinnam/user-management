@@ -25,7 +25,8 @@ for example, want to run app on 9090 port number instead of default(8080)
     Way-2 - if have eclipse(IDE) then following steps is enough to have packaged app file, (right click on project) -> Run -> Maven install which will generate 1-war file namely "user.management.system-0.0.1-SNAPSHOT.war" under 'target' directory
 
 ###6. Once the application is started you can access http://localhost:8080/
-
+    username: admin@gmail.com
+    password: admin
 
 
 ## Future Project Enhancement notes,

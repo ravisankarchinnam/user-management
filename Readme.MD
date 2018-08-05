@@ -1,3 +1,10 @@
+# Spring Boot Application.
+
+This Standalone Spring Boot Project is a User Management Systen for admins to perform operations on users.
+
+[![Build Status](https://travis-ci.org/ravisankarchinnam/user-management.svg?branch=master)](https://travis-ci.org/ravisankarchinnam/user-management)
+
+
 ###1. Used Database - H2
 
 ###2. Running as a Packaged Application (Following ways)

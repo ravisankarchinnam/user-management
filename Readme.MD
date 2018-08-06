@@ -38,15 +38,15 @@ for example, want to run app on 9090 port number instead of default(8080)
 ## RESULTS:
 
 	Login:
-		![alt text](https://github.com/ravisankarchinnam/user-management/tree/master/screen-shots/login.png)
+		![Login(https://github.com/ravisankarchinnam/user-management/tree/master/screen-shots/login.png)
 	Home:
-		![alt text](https://github.com/ravisankarchinnam/user-management/tree/master/screen-shots/home.png)
+		![Home]https://github.com/ravisankarchinnam/user-management/tree/master/screen-shots/home.png)
 	Search:
-		![alt text](https://github.com/ravisankarchinnam/user-management/tree/master/screen-shots/search.png)
+		![Search]https://github.com/ravisankarchinnam/user-management/tree/master/screen-shots/search.png)
 		
-		![alt text](https://github.com/ravisankarchinnam/user-management/tree/master/screen-shots/advanceSearch.png)
+		![Advance Search]https://github.com/ravisankarchinnam/user-management/tree/master/screen-shots/advanceSearch.png)
 	Create User:
-		![alt text](https://github.com/ravisankarchinnam/user-management/tree/master/screen-shots/newuser.png)
+		![Create User]https://github.com/ravisankarchinnam/user-management/tree/master/screen-shots/newuser.png)
 
 
 

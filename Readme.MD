@@ -35,6 +35,20 @@ for example, want to run app on 9090 port number instead of default(8080)
     password: admin
 
 
+## RESULTS:
+
+	Login:
+		![alt text](https://github.com/ravisankarchinnam/user-management/screen-shots/login.png)
+	Home:
+		![alt text](https://github.com/ravisankarchinnam/user-management/screen-shots/home.png)
+	Search:
+		![alt text](https://github.com/ravisankarchinnam/user-management/screen-shots/search.png)
+		![alt text](https://github.com/ravisankarchinnam/user-management/screen-shots/advanceSearch.png)
+	Create User:
+		![alt text](https://github.com/ravisankarchinnam/user-management/screen-shots/newuser.png)
+
+
+
 ## Future Project Enhancement notes,
 
     Login/Logout functionality

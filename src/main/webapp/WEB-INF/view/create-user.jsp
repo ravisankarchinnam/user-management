@@ -41,8 +41,8 @@
                                 <input id="password" type="password" class="form-control" name="password" required
                                        data-eye>
                             </div>
-                            <div class="form-group" required>
-                                <select id="criteriaId" name="roleName" class="custom-select form-control">
+                            <div class="form-group">
+                                <select id="criteriaId" name="roleName" class="custom-select form-control" required>
                                     <option value="ADMIN">Admin</option>
                                     <option value="USER">User</option>
                                 </select>

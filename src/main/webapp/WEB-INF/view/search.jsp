@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row justify-content-md-center">
             <form action="/searchSubmit" method="POST">
-                <h4 class="text-center">Welcome to Search Page</h4>
+                <h4 class="text-center">Advanced Search Page</h4>
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <tr>
@@ -43,8 +43,8 @@
     </div>
 </section>
 <c:if test="${not empty result}">
-    <section class="h-100">
-        <div class="container h-100">
+    <section class="">
+        <div class="container">
             <div class="row justify-content-md-center">
                 <div class="card">
                     <div class="card-header">

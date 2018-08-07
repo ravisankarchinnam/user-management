@@ -1,12 +1,14 @@
 package com.user.mngmnt.controller;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
+import com.user.mngmnt.constants.AppConstant;
+import com.user.mngmnt.dto.Response;
 import com.user.mngmnt.dto.SearchDTO;
+import com.user.mngmnt.model.RoleNames;
+import com.user.mngmnt.model.User;
+import com.user.mngmnt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,14 +17,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import com.user.mngmnt.constants.AppConstant;
-import com.user.mngmnt.dto.Response;
-import com.user.mngmnt.model.RoleNames;
-import com.user.mngmnt.model.User;
-import com.user.mngmnt.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -39,9 +39,12 @@ public class UserController {
 
 
     @GetMapping("/")
-    public ModelAndView home(@RequestParam(name = "page", required = false) Integer page, HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView home(@RequestParam(value = "page", defaultValue = "0", required = false) Integer page,
+                             @RequestParam(value = "size", defaultValue = "4", required = false) Integer size,
+                             HttpServletRequest request, HttpServletResponse response) {
 
-        Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>)
+                SecurityContextHolder.getContext().getAuthentication().getAuthorities();
         List<String> list = new ArrayList<>();
         authorities.forEach(e -> {
             list.add(e.getAuthority());
@@ -50,20 +53,9 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         if (list.contains(RoleNames.ADMIN.name())) {
             modelAndView.setViewName("home");
-            List<User> allUsers;
-            int totalPages = totalPageSize();
-            if (page != null && page > 0 && totalPages >= page) {
-                allUsers = findAllUser(page - 1);
-            } else if (page != null && page > 0 && page > totalPages) {
-                page = totalPages;
-                allUsers = findAllUser(page - 1);
-            } else {
-                page = 1;
-                allUsers = findAllUser(0);
-            }
+            Page<User> allUsers = userService.listUsers(PageRequest.of(page, size, Sort.by("firstName")));
             modelAndView.addObject("allUsers", allUsers);
-            modelAndView.addObject("maxTraySize", maxPaginationTraySize);
-            modelAndView.addObject("totalPages", totalPages);
+            modelAndView.addObject("maxTraySize", size);
             modelAndView.addObject("currentPage", page);
         } else {
             modelAndView.setViewName("user-home");
@@ -77,11 +69,35 @@ public class UserController {
 
 
     @GetMapping("/searchBox")
-    public ModelAndView home(@RequestParam(defaultValue = "") String name) {
+    public ModelAndView searchByTerm(@RequestParam(value = "page", defaultValue = "0", required = false) Integer page,
+                                     @RequestParam(value = "size", defaultValue = "4", required = false) Integer size,
+                                     @RequestParam(value = "searchTerm", required = false) String searchTerm) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("home");
-        List<User> allUsers = userService.searchUsers(name.trim());
+        Page<User> allUsers = userService.searchByTerm(searchTerm.trim(), PageRequest.of(page, size, Sort.by("firstName")));
         modelAndView.addObject("allUsers", allUsers);
+        modelAndView.addObject("maxTraySize", size);
+        modelAndView.addObject("currentPage", page);
+        return modelAndView;
+    }
+
+
+
+    @GetMapping("/search")
+    public ModelAndView search() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("search");
+        return modelAndView;
+    }
+
+
+
+    @PostMapping("/searchSubmit")
+    public ModelAndView searchSubmit(@ModelAttribute SearchDTO searchDto) {
+        List<User> result = userService.searchBy(searchDto.getSearchKeyword(), searchDto.getCriteria());
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("search");
+        modelAndView.addObject("result", result);
         return modelAndView;
     }
 
@@ -92,25 +108,6 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("create-user");
         return modelAndView;
-    }
-
-
-
-    private int totalPageSize() {
-        List<User> allUser = userService.findTotalUsersByIsActive(Boolean.TRUE);
-        int maxPossibleSize = 1;
-        if (allUser != null && allUser.size() > 0) {
-            maxPossibleSize = (int) Math.ceil(allUser.size() / maxResults);
-        }
-        return maxPossibleSize;
-    }
-
-
-
-    @ResponseBody
-    @GetMapping("/getAllUser")
-    public List<User> getAllUser() {
-        return findAllUser(0);
     }
 
 
@@ -161,13 +158,6 @@ public class UserController {
 
 
 
-    @GetMapping(value = {"/page/{page}", "/prev/{page}", "/next/{page}"})
-    public String page(@PathVariable int page) {
-        return "redirect:/?page=" + page;
-    }
-
-
-
     @ResponseBody
     @GetMapping("/removeAll")
     public Boolean removeAll() {
@@ -190,32 +180,6 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("error");
         return modelAndView;
-    }
-
-
-
-    @GetMapping("/search")
-    public ModelAndView search() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("search");
-        return modelAndView;
-    }
-
-
-
-    @PostMapping("/searchSubmit")
-    public ModelAndView searchSubmit(@ModelAttribute SearchDTO searchDto) {
-        List<User> result = userService.searchBy(searchDto.getSearchKeyword(), searchDto.getCriteria());
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("search");
-        modelAndView.addObject("result", result);
-        return modelAndView;
-    }
-
-
-
-    private List<User> findAllUser(int firstResult) {
-        return userService.findAllUser(PageRequest.of(firstResult, maxResults, Sort.by("firstName")));
     }
 
 }

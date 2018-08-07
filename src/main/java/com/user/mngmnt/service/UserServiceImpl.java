@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -41,15 +42,15 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<User> findAllUser(Pageable pageable) {
-        return userRepository.findAllByIsActive(Boolean.TRUE, pageable);
+    public Page<User> listUsers(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
 
 
     @Override
-    public List<User> searchUsers(String name) {
-        return userRepository.findUsersContaining(name);
+    public Page<User> searchByTerm(String name, Pageable pageable) {
+        return userRepository.searchByTerm(name, pageable);
     }
 
 
@@ -72,13 +73,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Long id) {
         return userRepository.findById(id).get();
-    }
-
-
-
-    @Override
-    public List<User> findTotalUsersByIsActive(Boolean isActive) {
-        return userRepository.findAllByIsActive(isActive);
     }
 
 

@@ -8,86 +8,130 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "User")
+@Table(name = "USER")
 public class User {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
 
-	@Column(name = "firstName")
-	private String firstName;
+    @Column(name = "firstName")
+    private String firstName;
 
-	@Column(name = "lastName")
-	private String lastName;
+    @Column(name = "lastName")
+    private String lastName;
 
-	@Column(name = "email")
-	private String email;
+    @Column(name = "email")
+    private String email;
 
-	@Column(name = "password")
-	private String password;
+    @Column(name = "password")
+    private String password;
 
-	@Column(name = "roleName")
-	private String roleName;
+    @Column(name = "roleName")
+    private String roleName;
 
-	@Column(name = "isActive")
-	private boolean isActive;
+    @Column(name = "isActive")
+    private boolean isActive;
 
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public User() {
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
 
-	public String getLastName() {
-		return lastName;
-	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public User(String pFirstName, String pLastName, String pEmail, String pPassword, String pRoleName, boolean pIsActive) {
+        firstName = pFirstName;
+        lastName = pLastName;
+        email = pEmail;
+        password = pPassword;
+        roleName = pRoleName;
+        isActive = pIsActive;
+    }
 
-	public String getEmail() {
-		return email;
-	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
-	public String getPassword() {
-		return password;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
-	public String getRoleName() {
-		return roleName;
-	}
 
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public boolean isActive() {
-		return isActive;
-	}
 
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+
+
+    public String getLastName() {
+        return lastName;
+    }
+
+
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+
+
+    public String getEmail() {
+        return email;
+    }
+
+
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+
+    public String getPassword() {
+        return password;
+    }
+
+
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+
+
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
+    }
 
 }

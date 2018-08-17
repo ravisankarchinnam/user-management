@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Dr.Panda: Create New User</title>
+    <title>Create New User</title>
 </head>
 
 <body class="my-login-page">

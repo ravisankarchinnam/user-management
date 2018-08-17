@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Dr.Panda: List Users</title>
+    <title>List All Users</title>
 </head>
 
 <body class="my-login-page">

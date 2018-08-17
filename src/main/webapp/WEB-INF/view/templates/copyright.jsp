@@ -1,3 +1,3 @@
 <div class="footer">
-    Copyright &copy; 2017 &mdash; Dr.Panda
+    Copyright &copy; 2018
 </div>

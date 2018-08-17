@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="resources/css/style.css"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Dr.Panda: Login Page</title>
+    <title>Login Page</title>
 </head>
 
 <body class="my-login-page">
